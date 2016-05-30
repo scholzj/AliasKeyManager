@@ -20,6 +20,7 @@ public class AliasKeyManagerFactorySpiTest {
     protected final String defaultAlgorithm = KeyManagerFactory.getDefaultAlgorithm();
 
     protected String keystorePath = "/test-keystore.jks";
+    protected String keystorePathMulti = "/test-multikey-keystore.jks";
     protected String keystorePassword = "123456";
     protected String alias = "myalias";
 
@@ -60,6 +61,21 @@ public class AliasKeyManagerFactorySpiTest {
         for (int i = 0; i < managers.length; i++)
         {
             Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { alias }, "Aliases do not match");
+        }
+    }
+
+    @Test
+    public void TestAliasWithoutPropertyMultikeyKeystore() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        KeyManagerFactory kmf = prepareKeyManagerFactory("aliaskm", keystorePathMulti);
+        KeyManager[] managers = kmf.getKeyManagers();
+
+        for (int i = 0; i < managers.length; i++)
+        {
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { alias }, "Aliases do not match");
         }
     }
 
@@ -73,6 +89,8 @@ public class AliasKeyManagerFactorySpiTest {
         for (int i = 0; i < managers.length; i++)
         {
             Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { alias }, "Aliases do not match");
         }
     }
 
@@ -128,8 +146,13 @@ public class AliasKeyManagerFactorySpiTest {
 
     private KeyManagerFactory prepareKeyManagerFactory(String algorithm) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException
     {
+        return prepareKeyManagerFactory(algorithm, keystorePath);
+    }
+
+    private KeyManagerFactory prepareKeyManagerFactory(String algorithm, String keyStore) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException
+    {
         KeyStore ks = KeyStore.getInstance("JKS");
-        ks.load(AliasKeyManagerTest.class.getResourceAsStream(keystorePath), keystorePassword.toCharArray());
+        ks.load(AliasKeyManagerTest.class.getResourceAsStream(keyStore), keystorePassword.toCharArray());
 
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(algorithm);
         kmf.init(ks, keystorePassword.toCharArray());
