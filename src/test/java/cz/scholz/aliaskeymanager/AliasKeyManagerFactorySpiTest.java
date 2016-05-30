@@ -67,6 +67,21 @@ public class AliasKeyManagerFactorySpiTest {
     }
 
     @Test
+    public void TestAliasWithPropertyMultikeyKeystore() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        System.setProperty("cz.scholz.aliaskeymanager.alias", "myAlias2");
+
+        KeyManagerFactory kmf = prepareKeyManagerFactory("aliaskm", keystorePathMulti);
+        KeyManager[] managers = kmf.getKeyManagers();
+
+        for (int i = 0; i < managers.length; i++)
+        {
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), "myAlias2", "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), "myAlias2", "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { "myAlias2" }, "Aliases do not match");
+        }
+    }
+
+    @Test
     public void TestAliasWithoutPropertyMultikeyKeystore() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
         KeyManagerFactory kmf = prepareKeyManagerFactory("aliaskm", keystorePathMulti);
         KeyManager[] managers = kmf.getKeyManagers();
