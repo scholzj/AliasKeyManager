@@ -2,7 +2,7 @@
 
 AliasKeyManager is an alternative KeyManager implementation which selects the key used for client authentication based on the alias and not based on the match against the Certification Authorities which are supported by the SSL server. It is implemented as a custom JSSE Provider, which provides only the KeyManager impelmentation. The AliasKeyManager extends the X509ExtendedKeyMAnager and repalces the methods used to select the client key. The methods used for selecting the server key are unchanged and their calls are forwarded to the original implementation.
 
-## Why do I need this?
+## Why do we need this?
 
 The default Java KeyManager implementation selects the client certificate (which is used for client authentication withing the SSL connection) always selects the key which it will use based on the matching issuer certification authorities. The list of supported CAs is always provided by the SSL server when the SSL connection is being established. This works ok in most cases. But there are some cases when this doesn't work that well:
 1) When self-signed certificates are used for authentication, they are usually not part of the CA list provided by the server (which is correct, because they are not CAs). As a result, the original KeyManager is unable to select the key to be used for autheitncation.
