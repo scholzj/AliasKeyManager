@@ -16,6 +16,10 @@ AliasKeyManager can select the key in two different ways:
 
 This basically means, that when you have a keystore with multiple keys, you can use the system property to select the right key. When you have a keystore with only one key, you don't have to do anything, the AliasKeyManager will automatically use the key.
 
+## Installation
+
+There is not complicated installation process. Simply include the AliasKeyManager JAR file to the classpath.
+
 ## Usage
 
 The AliasProvider class offers several static support methods which simplify the usage of the AliasKeyManager.
