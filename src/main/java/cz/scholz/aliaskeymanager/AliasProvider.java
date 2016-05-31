@@ -66,4 +66,16 @@ public class AliasProvider extends Provider {
         // Set the original default algo to be default again
         Security.setProperty("ssl.KeyManagerFactory.algorithm", DEFAULT_ALGORITHM);
     }
+
+    public static void setAlias(String alias)
+    {
+        // Sets the system property with the alias
+        System.setProperty("cz.scholz.aliaskeymanager.alias", alias);
+    }
+
+    public static void unSetAlias()
+    {
+        // Clears the system property with the alias
+        System.clearProperty("cz.scholz.aliaskeymanager.alias");
+    }
 }
