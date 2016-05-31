@@ -8,7 +8,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
- * Created by schojak on 30.5.16.
+ * AliasKeyManagerFactorySpi is used by Java's KeyManagerFactory to create the KeyManmager instances. This class
+ * contains the initialization of the KeyManager based on the base algorithm.
  */
 public class AliasKeyManagerFactorySpi extends KeyManagerFactorySpi {
     protected final String algorithm = "aliaskm";
@@ -16,6 +17,17 @@ public class AliasKeyManagerFactorySpi extends KeyManagerFactorySpi {
     protected KeyManagerFactory originalFactory;
     protected String alias;
 
+    /**
+     * Initializes the KeyManagerFactory with the keystore and its password. This class creates an instance of the
+     * KeyManagerFactory created using the base algorithm / default algorithm and determines the key alias which should
+     * be used.
+     *
+     * @param keyStore Keystore containing the private key
+     * @param chars Password to access the keyStore
+     * @throws KeyStoreException
+     * @throws NoSuchAlgorithmException
+     * @throws UnrecoverableKeyException
+     */
     protected void engineInit(KeyStore keyStore, char[] chars) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
         if (KeyManagerFactory.getDefaultAlgorithm().equals(algorithm))
         {
@@ -42,14 +54,31 @@ public class AliasKeyManagerFactorySpi extends KeyManagerFactorySpi {
         alias = determineAlias(keyStore, chars);
     }
 
+    /**
+     * Currently not implemented.
+     *
+     * @param managerFactoryParameters ManagerFactoryParameters object containing the parametrs of the KeyManagerFactory.
+     * @throws InvalidAlgorithmParameterException
+     */
     protected void engineInit(ManagerFactoryParameters managerFactoryParameters) throws InvalidAlgorithmParameterException {
         // Do nothing
     }
 
+    /**
+     * Return the array with wrapped KeyManager instances.
+     *
+     * @return Array of KeyManager instances
+     */
     protected KeyManager[] engineGetKeyManagers() {
         return wrapKeyManagers(originalFactory.getKeyManagers());
     }
 
+    /**
+     * Wraps the KeyManager instances provided by the default KeyManager into the AliasKeyManager.
+     *
+     * @param originalKeyManagers The KeyMAnager instances as returned by the default algorithm
+     * @return Array of wrapped KeyManager instances
+     */
     protected KeyManager[] wrapKeyManagers(KeyManager[] originalKeyManagers)
     {
         List<KeyManager> wrapped = new ArrayList<KeyManager>();
@@ -64,6 +93,15 @@ public class AliasKeyManagerFactorySpi extends KeyManagerFactorySpi {
         return wrapped.toArray(new KeyManager[0]);
     }
 
+    /**
+     * Determines and validates the alias which should be used for the authentication. The alias is either taken from
+     * the System property or from the KeyStore.
+     *
+     * @param keyStore Keystore containing the private key
+     * @param chars Password to access the keyStore
+     * @return Alias of the key which should be used
+     * @throws KeyStoreException
+     */
     protected String determineAlias(KeyStore keyStore, char[] chars) throws KeyStoreException {
         String alias = System.getProperty("cz.scholz.aliaskeymanager.alias");
 
