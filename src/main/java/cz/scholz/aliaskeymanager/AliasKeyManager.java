@@ -49,7 +49,7 @@ public class AliasKeyManager extends X509ExtendedKeyManager {
     /**
      * Returns always the selected key alias.
      *
-     * @param s
+     * @param strings
      * @param principals
      * @param socket
      * @return Key alias as a String
@@ -98,9 +98,9 @@ public class AliasKeyManager extends X509ExtendedKeyManager {
     /**
      * Returns always the selected key alias.
      *
-     * @param s
-     * @param principals
-     * @param socket
+     * @param keyType
+     * @param issuers
+     * @param engine
      * @return Key alias as a String
      */
     public String chooseEngineClientAlias(String[] keyType, Principal[] issuers, SSLEngine engine) {
