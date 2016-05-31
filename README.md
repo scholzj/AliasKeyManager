@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/scholzj/AliasKeyManager.svg?branch=master)](https://travis-ci.org/scholzj/AliasKeyManager)
+
 # AliasKeyManager
 
 AliasKeyManager is an alternative KeyManager implementation which selects the key used for client authentication based on the alias and not based on the match against the Certification Authorities which are supported by the SSL server. It is implemented as a custom JSSE Provider, which provides only the KeyManager impelmentation. The AliasKeyManager extends the X509ExtendedKeyMAnager and repalces the methods used to select the client key. The methods used for selecting the server key are unchanged and their calls are forwarded to the original implementation.
