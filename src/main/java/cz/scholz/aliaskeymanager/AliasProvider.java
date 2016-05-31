@@ -6,7 +6,7 @@ import java.security.Provider;
 import java.security.Security;
 
 /**
- * Created by schojak on 30.5.16.
+ * Implementation of JSSE provider, which provides its own KeyManager implementation.
  */
 public class AliasProvider extends Provider {
     private static final String DEFAULT_ALGORITHM = KeyManagerFactory.getDefaultAlgorithm();
@@ -18,14 +18,16 @@ public class AliasProvider extends Provider {
     private final String KM_SPI = "cz.scholz.aliaskeymanager.AliasKeyManagerFactorySpi";
 
     /**
-     * Constructs a provider with the specified name, version number,
-     * and information.
+     * Constructs the JSSE Provider instance
      */
     public AliasProvider() {
         super(ALGORITHM, VERSION, INFO);
         put(KM_SERVICE, KM_SPI);
     }
 
+    /**
+     * Enabled the JSSE Provider - registers it using Security.addProvideer(...)
+     */
     public static void enable()
     {
         // Add the provider
@@ -36,6 +38,9 @@ public class AliasProvider extends Provider {
         }
     }
 
+    /**
+     * Disable the JSSE Provider - if it is registered, it will be removed from the
+     */
     public static void disable()
     {
         // If our algo is the default, return the original default
@@ -51,31 +56,42 @@ public class AliasProvider extends Provider {
         }
     }
 
+    /**
+     * Set the AliasKeyManager as the default one for the application. In case the AliasKeyManager is not enabled, this
+     * method will automatically enable it.
+     */
     public static void setAsDefault()
     {
-        // Make sure AliasProvidert is enabled
+        // Make sure AliasProvider is enabled before setting it as default
         enable();
 
-        // Set AliasProvider as default and the original default as base
         System.setProperty("cz.scholz.aliaskeymanager.basealgorithm", DEFAULT_ALGORITHM);
         Security.setProperty("ssl.KeyManagerFactory.algorithm", ALGORITHM);
     }
 
+    /**
+     * Return to the original KeyManager implementation which was default before the AliasKeyManager
+     */
     public static void unsetAsDefault()
     {
-        // Set the original default algo to be default again
         Security.setProperty("ssl.KeyManagerFactory.algorithm", DEFAULT_ALGORITHM);
     }
 
+    /**
+     * Set the system property containing the alias of the key which should be used for authentication
+     *
+     * @param alias Alias of the prefered key
+     */
     public static void setAlias(String alias)
     {
-        // Sets the system property with the alias
         System.setProperty("cz.scholz.aliaskeymanager.alias", alias);
     }
 
+    /**
+     * Clear the system property containing the alias of the key which should be used for authentication
+     */
     public static void unSetAlias()
     {
-        // Clears the system property with the alias
         System.clearProperty("cz.scholz.aliaskeymanager.alias");
     }
 }
