@@ -11,6 +11,10 @@
     <description>Alternative KeyManager which selects the client private key for client authentication based on specified key alias or selects the first key in the keystore. It doesn't select the client key based on the supported CAs.</description>
     <url>http://scholzj.github.io/AliasKeyManager/</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
