@@ -22,6 +22,16 @@ This basically means, that when you have a keystore with multiple keys, you can 
 
 There is not complicated installation process. Simply include the AliasKeyManager JAR file to the classpath.
 
+It is also available in Maven Central repositories, so you can just add it as a Maven dependency:
+
+```
+<dependency>
+    <groupId>cz.scholz</groupId>
+    <artifactId>alias-key-manager</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 ## Usage
 
 The AliasProvider class offers several static support methods which simplify the usage of the AliasKeyManager.
