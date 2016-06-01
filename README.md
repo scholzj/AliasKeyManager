@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/scholzj/AliasKeyManager.svg?branch=master)](https://travis-ci.org/scholzj/AliasKeyManager)
+[![Build Status](https://travis-ci.org/scholzj/AliasKeyManager.svg?branch=master)](https://travis-ci.org/scholzj/AliasKeyManager) [![Coverage Status](https://coveralls.io/repos/github/scholzj/AliasKeyManager/badge.svg?branch=master)](https://coveralls.io/github/scholzj/AliasKeyManager?branch=master)
 
 # AliasKeyManager
 
