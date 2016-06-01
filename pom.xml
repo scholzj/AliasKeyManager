@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cz.scholz</groupId>
     <artifactId>alias-key-manager</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>AliasKeyManager</name>
     <description>Alternative KeyManager which selects the client private key for client authentication based on specified key alias or selects the first key in the keystore. It doesn't select the client key based on the supported CAs.</description>
