@@ -1,9 +1,6 @@
 package cz.scholz.aliaskeymanager;
 
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.X509ExtendedKeyManager;
+import javax.net.ssl.*;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -37,6 +34,17 @@ public class AliasKeyManagerFactorySpiTest {
                 Assert.fail("KeyManager is not instance of AliasKeyManager " + managers[i].toString());
             }
         }
+    }
+
+    @Test(expectedExceptions = InvalidAlgorithmParameterException.class)
+    public void TestManagerParameters() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException, InvalidAlgorithmParameterException {
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance("aliaskm");
+        kmf.init(new ManagerFactoryParameters() {
+            @Override
+            public int hashCode() {
+                return super.hashCode();
+            }
+        });
     }
 
     @Test
