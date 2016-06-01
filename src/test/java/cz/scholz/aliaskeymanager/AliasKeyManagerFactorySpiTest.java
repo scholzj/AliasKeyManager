@@ -21,6 +21,7 @@ public class AliasKeyManagerFactorySpiTest {
 
     protected String keystorePath = "/test-keystore.jks";
     protected String keystorePathMulti = "/test-multikey-keystore.jks";
+    protected String keystorePathEmpty = "/test-empty-keystore.jks";
     protected String keystorePassword = "123456";
     protected String alias = "myalias";
 
@@ -84,6 +85,19 @@ public class AliasKeyManagerFactorySpiTest {
     @Test
     public void TestAliasWithoutPropertyMultikeyKeystore() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
         KeyManagerFactory kmf = prepareKeyManagerFactory("aliaskm", keystorePathMulti);
+        KeyManager[] managers = kmf.getKeyManagers();
+
+        for (int i = 0; i < managers.length; i++)
+        {
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { alias }, "Aliases do not match");
+        }
+    }
+
+    @Test(expectedExceptions = KeyStoreException.class)
+    public void TestEmptyKeystore() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        KeyManagerFactory kmf = prepareKeyManagerFactory("aliaskm", keystorePathEmpty);
         KeyManager[] managers = kmf.getKeyManagers();
 
         for (int i = 0; i < managers.length; i++)

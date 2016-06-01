@@ -61,7 +61,7 @@ public class AliasKeyManagerFactorySpi extends KeyManagerFactorySpi {
      * @throws InvalidAlgorithmParameterException
      */
     protected void engineInit(ManagerFactoryParameters managerFactoryParameters) throws InvalidAlgorithmParameterException {
-        // Do nothing
+        throw new InvalidAlgorithmParameterException("Unsupported ManagaerFactoryParameters");
     }
 
     /**
