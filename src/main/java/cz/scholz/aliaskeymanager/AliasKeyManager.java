@@ -11,8 +11,8 @@ import java.security.cert.X509Certificate;
  * AliasKeyManager extends the X509ExtendedKeyManager with a wrapper which allows to always select predefined client certificate.
  */
 public class AliasKeyManager extends X509ExtendedKeyManager {
-    X509ExtendedKeyManager original;
-    String alias;
+    private final X509ExtendedKeyManager original;
+    private final String alias;
 
     /**
      * Creates an instance of AliasKeyManager based on instance of X509EntendedKeyManager.
