@@ -26,7 +26,7 @@ public class AliasProvider extends Provider {
     }
 
     /**
-     * Enabled the JSSE Provider - registers it using Security.addProvideer(...)
+     * Enabled the JSSE Provider - registers it using Security.addProvider(...)
      */
     public static void enable()
     {
@@ -39,7 +39,7 @@ public class AliasProvider extends Provider {
     }
 
     /**
-     * Disable the JSSE Provider - if it is registered, it will be removed from the
+     * Disable the JSSE Provider - if it is registered, it will be unregistered
      */
     public static void disable()
     {
