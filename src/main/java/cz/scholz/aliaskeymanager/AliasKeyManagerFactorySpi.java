@@ -29,7 +29,7 @@ public class AliasKeyManagerFactorySpi extends KeyManagerFactorySpi {
      * @throws UnrecoverableKeyException
      */
     protected void engineInit(KeyStore keyStore, char[] chars) throws KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException {
-        if (KeyManagerFactory.getDefaultAlgorithm().equals(algorithm))
+        if (algorithm.equals(KeyManagerFactory.getDefaultAlgorithm()))
         {
             baseAlgorithm = System.getProperty("cz.scholz.aliaskeymanager.basealgorithm");
 
