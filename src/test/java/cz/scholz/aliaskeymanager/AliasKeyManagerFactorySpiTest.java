@@ -88,6 +88,18 @@ public class AliasKeyManagerFactorySpiTest {
             Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), "myAlias2", "Aliases do not match");
             Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { "myAlias2" }, "Aliases do not match");
         }
+
+        System.setProperty("cz.scholz.aliaskeymanager.alias", "myAlias");
+
+        KeyManagerFactory kmf2 = prepareKeyManagerFactory("aliaskm", keystorePathMulti);
+        KeyManager[] managers2 = kmf2.getKeyManagers();
+
+        for (int i = 0; i < managers2.length; i++)
+        {
+            Assert.assertEquals(((X509ExtendedKeyManager)managers2[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), "myAlias", "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers2[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), "myAlias", "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers2[i]).getClientAliases("", new Principal[0]), new String[] { "myAlias" }, "Aliases do not match");
+        }
     }
 
     @Test
@@ -121,6 +133,24 @@ public class AliasKeyManagerFactorySpiTest {
         System.setProperty("cz.scholz.aliaskeymanager.alias", "someOtherAlias");
 
         KeyManagerFactory kmf = prepareKeyManagerFactory();
+        KeyManager[] managers = kmf.getKeyManagers();
+
+        for (int i = 0; i < managers.length; i++)
+        {
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseClientAlias(new String[0], new Principal[0], new Socket()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).chooseEngineClientAlias(new String[0], new Principal[0], SSLContext.getDefault().createSSLEngine()), alias, "Aliases do not match");
+            Assert.assertEquals(((X509ExtendedKeyManager)managers[i]).getClientAliases("", new Principal[0]), new String[] { alias }, "Aliases do not match");
+        }
+    }
+
+    @Test
+    public void TestAliasChangeAfterInit() throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException {
+        System.setProperty("cz.scholz.aliaskeymanager.alias", alias);
+
+        KeyManagerFactory kmf = prepareKeyManagerFactory();
+
+        System.setProperty("cz.scholz.aliaskeymanager.alias", "someOtherAlias");
+
         KeyManager[] managers = kmf.getKeyManagers();
 
         for (int i = 0; i < managers.length; i++)
