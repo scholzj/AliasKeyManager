@@ -13,7 +13,7 @@ public class AliasProvider extends Provider {
 
     private final static String ALGORITHM = "aliaskm";
     private final static Double VERSION = 1.0;
-    private final static String INFO = "Alias Security provider provides the Key MAnager which selects the client key for authtentication based on the alias";
+    private final static String INFO = "Alias Security provider provides the Key Manager which selects the client key for authentication based on the alias";
     private final String KM_SERVICE = "KeyManagerFactory.aliaskm";
     private final String KM_SPI = "cz.scholz.aliaskeymanager.AliasKeyManagerFactorySpi";
 
