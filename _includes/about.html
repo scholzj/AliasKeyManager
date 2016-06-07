@@ -1,5 +1,5 @@
 <!-- About Section -->
-    <section id="about">
+    <section class="success" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -35,9 +35,12 @@
 
                 <h3>How is the key selected</h3>
 
-                <p>AliasKeyManager can select the key in two different ways: 1) When the system property
-                    cz.scholz.aliaskeymanager.alias is specified, this will be the alias of the key which will be used
-                    2) When the system property is not specified, the alias of the first key will be used.</p>
+                <p>AliasKeyManager can select the key in two different ways:</p>
+
+                <ol>
+                    <li>1) When the system property cz.scholz.aliaskeymanager.alias is specified, this will be the alias of the key which will be used</li>
+                    <li></li>2) When the system property is not specified, the alias of the first key will be used.</li>
+                </ol>
 
                 <p>This basically means, that when you have a keystore with multiple keys, you can use the system
                     property to select the right key. When you have a keystore with only one key, you don't have to do
