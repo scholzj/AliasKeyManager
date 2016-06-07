@@ -1,0 +1,28 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: Alias KeyManager
+email: your-email@domain.com
+description: > # this means to ignore newlines until "baseurl:"
+  Alternative KeyManager which selects the client private key for client authentication based on specified key alias or selects the first key in the keystore. It doesn't select the client key based on the supported CAs.
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "http://aliaskeymanager.scholz.cz" # the base hostname & protocol for your site
+
+# Social media profiles - feel free to add more here
+twitter_username: scholzj
+github_username:  scholzj
+linkedin_username: scholzj
+
+# Address information
+address_street: 3034 Melrose Place
+address_city: Beverly Hills
+address_state: CA
+address_zip: 90201
+
+# Build settings
+markdown: kramdown
