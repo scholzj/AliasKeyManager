@@ -1,0 +1,37 @@
+<!-- Usage Section -->
+    <section id="usage">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Usage</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row">
+                <p>The AliasProvider class offers several static support methods which simplify the usage of the AliasKeyManager.</p>
+
+                <h3>enable() / disable()</h3>
+
+                <p>The <code>enable()</code> and <code>disable()</code> methods can be used to enable or disable the AliasKeyManager. The <code>enable()</code> method will add it to the list of JSSE providers. The <code>disable()</code> method will remove it from the list. When the AliasKeyManager is enabled, you can use it by requesting the KeyManagerFactory for algorithm <code>aliaskm</code>:</p>
+
+                <pre>
+                    KeyManagerFactory kmf = KeyManagerFactory.getInstance("aliaskm");
+                </pre>
+
+                <p>In case you have a control over the KeyManagerFactory algorithm, this is the best way how to use the AliasKeyManager. It will be used only on the places where you request the <code>aliaskm</code> algorithm. But all other places where SSL is used will continue to use Java's default implementation.</p>
+
+                <h3>setAsDefault() / unSetAsDefault()</h3>
+
+                <p>Method <code>setAsDefault()</code> will make the AliasKeyManager the default KeyManager for your application.</p>
+
+                <pre>
+                    KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+                </pre>
+
+                <p>This allows you to use the AliasKeyManager even in clients / libraries which don't allow you to use your own algorithm. However, as a consequence, every SSL client / server which is using the default algorithm will now use the AliasKeyManager.</p>
+
+                <p>Method <code>unSetAsDefault()</code> can be used to reset the default algorithm and return to the default Java implementation.</p>
+
+            </div>
+        </div>
+    </section>
