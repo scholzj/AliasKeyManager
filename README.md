@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/scholzj/AliasKeyManager.svg?branch=master)](https://travis-ci.org/scholzj/AliasKeyManager) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/github/scholzj/aliaskeymanager?branch=master&svg=true)](https://ci.appveyor.com/project/scholzj/aliaskeymanager) [![Coverage Status](https://coveralls.io/repos/github/scholzj/AliasKeyManager/badge.svg?branch=master)](https://coveralls.io/github/scholzj/AliasKeyManager?branch=master)
+[![Build Status](https://travis-ci.org/scholzj/AliasKeyManager.svg?branch=master)](https://travis-ci.org/scholzj/AliasKeyManager) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/github/scholzj/aliaskeymanager?branch=master&svg=true)](https://ci.appveyor.com/project/scholzj/aliaskeymanager) [![Coverage Status](https://coveralls.io/repos/github/scholzj/AliasKeyManager/badge.svg?branch=master)](https://coveralls.io/github/scholzj/AliasKeyManager?branch=master) [![codebeat badge](https://codebeat.co/badges/aaecac49-1a65-402e-917c-2e0c4d589d31)](https://codebeat.co/projects/github-com-scholzj-aliaskeymanager)
 
 # AliasKeyManager
 
